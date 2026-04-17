@@ -2,7 +2,7 @@
 
 Official Swift SDK for [cachly.dev](https://cachly.dev) – Managed Valkey/Redis cache.
 
-**DSGVO-compliant · German servers · 30s provisioning**  
+**GDPR-compliant · German servers · Live in 30 seconds**  
 **iOS 17+ · macOS 14+ · Server-side Swift (Vapor) · async/await native**
 
 ## Installation
@@ -133,9 +133,9 @@ struct ContentView: View {
 | `semantic.flush(namespace:)` | Async – flush namespace |
 | `semantic.size(namespace:)` | Async – entry count |
 
-## Batch API – mehrere Ops in einem Round-Trip
+## Batch API — Multiple Ops in One Round-Trip
 
-Bündelt GET/SET/DEL/EXISTS/TTL-Ops in **einem** HTTP-Request oder einer RediStack-Pipeline.
+Bundle GET/SET/DEL/EXISTS/TTL operations into **one** HTTP request or RediStack pipeline.
 
 ```swift
 let cache = try await CachlyClient(
@@ -154,7 +154,7 @@ let results = try await cache.batch([
 let user : String? = results[0].value        // nil on miss
 let ok   : Bool    = results[2].ok
 let found: Bool    = results[3].exists
-let secs : Int64   = results[4].ttlSeconds   // -1 = kein TTL, -2 = nicht vorhanden
+let secs : Int64   = results[4].ttlSeconds   // -1 = no TTL, -2 = key missing
 ```
 
 ## Environment Variables
@@ -171,17 +171,35 @@ Find both values in your [cachly.dev dashboard](https://cachly.dev/instances).
 ## Quality Gates
 
 ```bash
-# Build (CommandLineTools oder Xcode)
-swift build          # ✅ Build complete!
-
-# Tests (benötigt Xcode.app – nicht nur CommandLineTools)
-swift test           # ✅ alle Tests grün (mit Xcode 16+)
-# Hinweis: @Test-Macro-Discovery funktioniert nur mit Xcode.app,
-# nicht mit CommandLineTools allein (macOS-Limitation).
-# Tests compilieren und linken in beiden Umgebungen korrekt.
+swift build    # Build complete
+swift test     # All tests green (requires Xcode 16+ for @Test macro discovery)
 ```
 
-## License
+> Note: `@Test` macro discovery requires Xcode.app, not just CommandLineTools. Tests compile and link correctly in both environments.
 
-MIT  [cachly.dev](https://cachly.dev)
+---
+
+## AI Dev Brain — Persistent Memory for Your Coding Assistant
+
+cachly ships a **30-tool MCP server** that gives Claude Code, Cursor, GitHub Copilot, and Windsurf a persistent memory across sessions — so they never forget your architecture, lessons learned, or last session context.
+
+```bash
+npx @cachly-dev/init
+```
+
+`session_start(instance_id, focus)` returns a full briefing in one call: last session summary, relevant lessons, open failures, brain health. 60 % fewer file reads, instant context, zero re-discovery.
+
+→ Full docs: [cachly.dev/docs/ai-memory](https://cachly.dev/docs/ai-memory)
+
+---
+
+## Links
+
+- 📖 [cachly.dev docs](https://cachly.dev/docs)
+- 🧠 [AI Memory / MCP Server](https://cachly.dev/docs/ai-memory)
+- 🐛 [Issues](https://github.com/cachly-dev/sdk-swift/issues)
+
+---
+
+MIT © [cachly.dev](https://cachly.dev)
 
